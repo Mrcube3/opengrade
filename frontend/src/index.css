@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-[radial-gradient(circle_at_20%_20%,rgba(8,15,37,0.45),transparent_30%),radial-gradient(circle_at_80%_30%,rgba(56,189,248,0.12),transparent_36%),bg] text-slate-100;
+  min-height: 100vh;
+}
+
+.glass-card {
+  background: rgba(15, 23, 42, 0.086);
+  border: 1px solid rgba(1, 143, 15, 0.24);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(1px);
+  border-radius: 18px;
+  box-shadow: 0 15px 35px rgba(3, 12, 27, 0.6);
+}
