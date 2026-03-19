@@ -5,7 +5,7 @@ export default {
     extend: {
       colors: {
         bg: "#0f172a",
-        neon: "#38bdf8",
+        neon: "#e40000ff",
         card: "rgba(15, 23, 42, 0.54)",
       },
       boxShadow: {

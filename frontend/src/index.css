@@ -7,15 +7,31 @@
 }
 
 body {
-  @apply bg-[radial-gradient(circle_at_20%_20%,rgba(8,15,37,0.45),transparent_30%),radial-gradient(circle_at_80%_30%,rgba(56,189,248,0.12),transparent_36%),bg] text-slate-100;
+  @apply text-slate-100;
   min-height: 100vh;
+  margin: 0;
+  background-color: #ec4899; /* Vibrant pink base */
+  background-image: 
+    /* Dotted pattern - now black */
+    radial-gradient(rgba(0, 0, 0, 0.6) 1.5px, transparent 1.5px),
+    /* Top Left Sea Green */
+    radial-gradient(circle at 0% 0%, #6ee7b7 0%, transparent 40%),
+    /* Mid Left Orange */
+    radial-gradient(circle at 10% 50%, #f97316 0%, transparent 55%),
+    /* Top Right Pinkish Red */
+    radial-gradient(circle at 100% 10%, #f43f5e 0%, transparent 55%),
+    /* Bottom Right Purple/Blue */
+    radial-gradient(circle at 100% 100%, #6366f1 0%, transparent 65%);
+  background-size: 32px 32px, 150% 150%, 150% 150%, 150% 150%, 150% 150%;
+  background-position: calc(0px + var(--dot-x, 0px)) calc(0px + var(--dot-y, 0px)), 0 0, 0 0, 0 0, 0 0;
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat;
 }
 
 .glass-card {
-  background: rgba(15, 23, 42, 0.086);
-  border: 1px solid rgba(1, 143, 15, 0.24);
-  backdrop-filter: blur(12px);
+  background: rgba(1, 108, 150, 0.992);
+  border: 1px solid rgba(70, 1, 58, 0.842);
+  backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(1px);
-  border-radius: 18px;
-  box-shadow: 0 15px 35px rgba(3, 12, 27, 0.6);
+  border-radius: 15px;
+  box-shadow: 0 15px 35px rgba(7, 68, 147, 0.965);
 }

@@ -18,7 +18,7 @@ export default function ClaimForm() {
     setResult(null);
 
     try {
-      const resp = await fetch("http://localhost:8001/fact-check", {
+      const resp = await fetch("http://localhost:8000/fact-check", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ claim }),
@@ -38,15 +38,23 @@ export default function ClaimForm() {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      runFactCheck();
+    }
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto px-4">
       <div className="glass-card border neon/30 p-6 md:p-10">
-        <h1 className="text-4xl font-bold text-cyan-200 mb-3">VeriCheck</h1>
+        <h1 className="text-4xl font-bold text-cyan-200 mb-3">Check</h1>
         <p className="text-slate-300">Paste a controversial claim and get a TEE-backed verification output with transaction proof.</p>
 
         <textarea
           value={claim}
           onChange={(e) => setClaim(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder="Enter claim here"
           className="w-full mt-5 p-4 rounded-xl border border-cyan-300/20 bg-slate-900/60 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent min-h-[160px]"
         />

@@ -6,9 +6,9 @@ from dotenv import load_dotenv
 import opengradient as og
 from opengradient.client import LLM
 
-load_dotenv()
+load_dotenv(override=True)
 
-PRIVATE_KEY = os.getenv("PRIVATE_KEY")
+PRIVATE_KEY = os.getenv("PRIVATE_KEY", "").strip()
 OG_ENV = os.getenv("OG_ENV", "prod")
 
 if not PRIVATE_KEY:
@@ -85,17 +85,16 @@ async def fact_check(payload: ClaimRequest):
             "tee_status": tee_status,
         }
 
-    except (ValueError, RuntimeError) as e:
-        if "insufficient" in str(e).lower() or "opg" in str(e).lower():
-            raise HTTPException(
-                status_code=402,
-                detail=(
-                    "Insufficient $OPG tokens. "
-                    "Top up at https://app.opengradient.com/faucet"
-                ),
-            )
-        raise HTTPException(status_code=500, detail=str(e))
-    except Exception as e:
+    except (ValueError, RuntimeError, Exception) as e:
+        error_str = str(e).lower()
+        if "insufficient" in error_str or "opg" in error_str or "payment" in error_str:
+            # The user requested to see "done" and a mocked response instead of failing
+            return {
+                "claim": claim,
+                "analysis": "Mock TEE Verified Output: The submitted claim has been processed in a simulated TEE environment (Insufficient real $OPG tokens for mainnet RPC).\n\nVerdict: INCONCLUSIVE (Mocked)",
+                "transaction_hash": "0x0000000000000000000000000000000000000000000000000000simulate",
+                "tee_status": "Simulated (No Tokens)",
+            }
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/")
