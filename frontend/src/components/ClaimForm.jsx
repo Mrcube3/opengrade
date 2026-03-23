@@ -18,7 +18,10 @@ export default function ClaimForm() {
     setResult(null);
 
     try {
-      const resp = await fetch("http://localhost:8000/fact-check", {
+      const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+      const apiBaseUrl = import.meta.env.VITE_API_URL || (isLocalhost ? "http://localhost:8000" : "https://opengrade-1.onrender.com");
+      
+      const resp = await fetch(`${apiBaseUrl}/fact-check`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ claim }),
